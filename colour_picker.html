@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            border: none;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #000;
+        }
+
+        input[type="range"] {
+            width: 100%;
+        }
+
+        #colorDisplay {
+            width: 200px;
+            height: 50px;
+            margin: 10px;
+            border: 1px solid #000;
+        }
+
+        #rgbLabel {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="colorPicker">
+    <table>
+        <tr>
+            <th>Color</th>
+            <th>Slider</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td><label for="redSlider">Red:</label></td>
+            <td><input type="range" id="redSlider" value="0" max="255"></td>
+            <td><span id="redValue">0</span></td>
+        </tr>
+        <tr>
+            <td><label for="greenSlider">Green:</label></td>
+            <td><input type="range" id="greenSlider" value="0" max="255"></td>
+            <td><span id="greenValue">0</span></td>
+        </tr>
+        <tr>
+            <td><label for="blueSlider">Blue:</label></td>
+            <td><input type="range" id="blueSlider" value="0" max="255"></td>
+            <td><span id="blueValue">0</span></td>
+        </tr>
+    </table>
+
+    <div id="colorDisplay"></div>
+    <div id="rgbLabel">RGB: (0, 0, 0)</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            updateColor();
+
+            document.getElementById("redSlider").addEventListener("input", updateColor);
+            document.getElementById("greenSlider").addEventListener("input", updateColor);
+            document.getElementById("blueSlider").addEventListener("input", updateColor);
+        });
+
+        function updateColor() {
+            let redValue = document.getElementById("redSlider").value;
+            let greenValue = document.getElementById("greenSlider").value;
+            let blueValue = document.getElementById("blueSlider").value;
+
+            let colorDisplay = document.getElementById("colorDisplay");
+            colorDisplay.style.backgroundColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+
+            let rgbLabel = document.getElementById("rgbLabel");
+            rgbLabel.innerText = `RGB: (${redValue}, ${greenValue}, ${blueValue})`;
+
+            document.getElementById("redValue").innerText = redValue;
+            document.getElementById("greenValue").innerText = greenValue;
+            document.getElementById("blueValue").innerText = blueValue;
+        }
+    </script>
+</div>
+
+</body>
+</html>
