@@ -29,6 +29,11 @@
         #rgbLabel {
             margin: 10px;
         }
+		
+		 button {
+            width: 30px;
+            height: 30px;
+        }
     </style>
 </head>
 <body>
@@ -37,37 +42,73 @@
     <table border=0>
         <tr>
             <th>Color</th>
+			<th></th>
             <th>Slider</th>
+			<th></th>
             <th>Value</th>
         </tr>
         <tr>
             <td><label for="redSlider">Red:</label></td>
+			<td><button class="decrement" id="decrement_red">-</button></td>
             <td><input type="range" id="redSlider" value="0" max="255"></td>
+			<td><button class="increment" id="increment_red">+</button></td>
             <td><span id="redValue">0</span></td>
         </tr>
         <tr>
             <td><label for="greenSlider">Green:</label></td>
+			<td><button class="decrement" id="decrement_green">-</button></td>
             <td><input type="range" id="greenSlider" value="0" max="255"></td>
+			<td><button class="increment" id="increment_green">+</button></td>
             <td><span id="greenValue">0</span></td>
         </tr>
         <tr>
             <td><label for="blueSlider">Blue:</label></td>
+			<td><button class="decrement" id="decrement_blue">-</button></td>
             <td><input type="range" id="blueSlider" value="0" max="255"></td>
+			<td><button class="increment" id="increment_blue">+</button></td>
             <td><span id="blueValue">0</span></td>
         </tr>
+			<tr>
+			<td></td>
+			<td></td>
+			<td><div id="colorDisplay"></div></td>
+		</tr>
+		 </tr>
+			<tr>
+			<td></td>
+			<td></td>
+			<td><div id="rgbLabel">RGB: (0, 0, 0)</div></td>
+		</tr>
     </table>
-
-    <div id="colorDisplay"></div>
-    <div id="rgbLabel">RGB: (0, 0, 0)</div>
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            updateColor();
+        updateColor();
 
-            document.getElementById("redSlider").addEventListener("input", updateColor);
-            document.getElementById("greenSlider").addEventListener("input", updateColor);
-            document.getElementById("blueSlider").addEventListener("input", updateColor);
+        document.getElementById("redSlider").addEventListener("input", updateColor);
+        document.getElementById("greenSlider").addEventListener("input", updateColor);
+        document.getElementById("blueSlider").addEventListener("input", updateColor);
+
+        document.getElementById("increment_red").addEventListener("click", function() {
+            increment("redSlider");
         });
+        document.getElementById("decrement_red").addEventListener("click", function() {
+            decrement("redSlider");
+        });
+        
+        document.getElementById("increment_green").addEventListener("click", function() {
+            increment("greenSlider");
+        });
+        document.getElementById("decrement_green").addEventListener("click", function() {
+            decrement("greenSlider");
+        });
+        
+        document.getElementById("increment_blue").addEventListener("click", function() {
+            increment("blueSlider");
+        });
+        document.getElementById("decrement_blue").addEventListener("click", function() {
+            decrement("blueSlider");
+        });
+    });
 
         function updateColor() {
             let redValue = document.getElementById("redSlider").value;
@@ -83,6 +124,17 @@
             document.getElementById("redValue").innerText = redValue;
             document.getElementById("greenValue").innerText = greenValue;
             document.getElementById("blueValue").innerText = blueValue;
+        }
+		function increment(sliderId) {
+            let slider = document.getElementById(sliderId);
+            slider.value = parseInt(slider.value) + 1;
+            updateColor();
+        }
+
+        function decrement(sliderId) {
+            let slider = document.getElementById(sliderId);
+            slider.value = parseInt(slider.value) - 1;
+            updateColor();
         }
     </script>
 </div>
